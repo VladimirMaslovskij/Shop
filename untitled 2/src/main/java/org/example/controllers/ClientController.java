@@ -24,23 +24,27 @@ public class ClientController
 
         Scanner sc = new Scanner(System.in);
         interfaceMenu();
-        int clientChose = sc.nextInt();
-        while (true)
+        boolean isTrue = true;
+        while (isTrue)
         {
+            int clientChose = sc.nextInt();
             switch (clientChose)
             {
                 case 1:
                     showGoods();
+                    interfaceMenu();
                     break;
                 case 2:
+                    Scanner scanner = new Scanner(System.in);
                     System.out.println("Enter the name of good and count");
-                    String good = sc.nextLine();
-                    int count = sc.nextInt();
+                    String good = scanner.nextLine();
+                    int count = scanner.nextInt();
                     try {
                         clientDAO.addGoodToBasket(good, count);
                     } catch (GoodNotFoundException e) {
                         System.out.println(e.getMessage());
                     }
+                    interfaceMenu();
                     break;
                 case 3:
                     System.out.println("Enter the name of good");
@@ -50,9 +54,11 @@ public class ClientController
                     } catch (GoodNotFoundException e) {
                         throw new RuntimeException(e);
                     }
+                    interfaceMenu();
                     break;
                 case 4:
-                    clientBuy(clientDAO);
+                    clientBuy(client);
+                    interfaceMenu();
                     break;
                 case 5:
                     System.out.println("Enter the name of good and count");
@@ -63,11 +69,11 @@ public class ClientController
                     } catch (GoodNotFoundException e) {
                         System.out.println(e.getMessage());
                     }
+                    interfaceMenu();
                     break;
-                case 6:
-                    System.out.println("Enter the id number of operation");
-                    long id = sc.nextLong();
-                    goodBack(id);
+                case 10:
+                    isTrue = false;
+                    break;
             }
         }
     }
@@ -81,10 +87,10 @@ public class ClientController
     }
 
 
-    public static void clientBuy(ClientDAO clientDAO)
+    public static void clientBuy(Client client)
     {
         ShopDAO shopDAO = new ShopDAO();
-        Client denis = new Client(12500F);
+        ClientDAO clientDAO = new ClientDAO(client);
         CheckDAO checkDAO = new CheckDAO();
             HashMap<Good, Integer> basket = clientDAO.getClient().getBasket();
             Float sumOfBuy = clientDAO.calculateBasket(basket);
@@ -98,26 +104,22 @@ public class ClientController
                     System.out.println(e.getMessage());
                 }
             }
-        clientDAO.getClient().getBasket().clear();
         String cashierName = shopDAO.getCashierName();
         Check check = checkDAO.createCheck(basket, cashierName, clientDAO.getClient());
         check.printCheck();
+        clientDAO.getClient().getBasket().clear();
     }
 
-    public static void goodBack(long id)
-    {
-        // Проверка соответствует ли id чека одному из чеков в хранилище, и если да, то вернуть товары
-        // по количеству в магазин и вернуть бабки клиенту
-    }
 
     public static void interfaceMenu()
     {
-        System.out.println("1. Show all goods;" +
-                            "2. add good to basket;" +
-                            "3. find good;" +
-                            "4. buy goods from basket;" +
-                            "5. remove goods from basket;"+
-                            "6. back good in shop");
+        System.out.println("1. Show all goods;" + "\n" +
+                            "2. add good to basket;" + "\n" +
+                            "3. find good;" + "\n" +
+                            "4. buy goods from basket;" + "\n" +
+                            "5. remove goods from basket;"+ "\n" +
+                            "6. back good in shop" + "\n" +
+                            "10. exit" + "\n");
     }
 
 }

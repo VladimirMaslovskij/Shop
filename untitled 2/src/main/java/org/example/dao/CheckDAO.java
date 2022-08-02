@@ -35,7 +35,7 @@ public class CheckDAO
                         good.getValue() + ";");
                 totalPrice += good.getKey().getPrice() * good.getValue();
             }
-            writer.write("!" + totalPrice + "!" + (check.getSellTime()) + "!" + (cashier) + "!" + id + "!");
+            writer.write("!" + totalPrice + "!" + (check.getSellTime()) + "!" + (cashier) + "!" + id + "!" + "\n");
             clientWriter.write("!" + totalPrice + "!" + (check.getSellTime()) + "!" + (cashier) + "!" + id + "!");
         } catch (IOException e) {
             throw new RuntimeException(e);

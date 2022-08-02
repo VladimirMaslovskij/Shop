@@ -128,13 +128,7 @@ public class BuyTest
     @Test
     public void soutTest()
     {
-        LocalDate date = LocalDate.now();
-        LocalDateTime dateTime = LocalDateTime.now();
-        System.out.println(date);
-        System.out.println(dateTime);
-        ZoneId id = ZoneId.of("Europe/Moscow");
-        ZonedDateTime newTime = ZonedDateTime.now(id);
-        System.out.println(newTime);
+
     }
 
 }

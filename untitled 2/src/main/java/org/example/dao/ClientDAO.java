@@ -108,30 +108,7 @@ public class ClientDAO
         client.setCash(client.getCash() - sum);
     }
 
-    public void addCheck(Check check)
-    {
-        client.getOrdersHistory().add(check);
-    }
 
 }
-//    {
-//        File file = new File("text.txt");
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-//            bufferedWriter.newLine();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    }
 
