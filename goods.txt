@@ -1,0 +1,5 @@
+apple,50.0,54
+banana,48.0,76
+chicken,150.0,89
+candy,190.0,150
+bread,27.0,50

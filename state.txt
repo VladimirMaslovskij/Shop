@@ -1,0 +1,6 @@
+Anna,CASHIER
+Maxim,DIRECTOR
+Dmitriy,FINANCE_MANGER
+Ivan,CASHIER
+DmitriyLeonov,CLEANER
+Anna,DIRECTOR
