@@ -1,5 +1,7 @@
 package org.example;
 
+import ShopExceptions.CashNotEnoughException;
+import ShopExceptions.GoodNotEnoughException;
 import ShopExceptions.GoodNotFoundException;
 import org.example.dao.CheckDAO;
 import org.example.dao.ClientDAO;
@@ -65,7 +67,11 @@ public class BuyTest
             HashMap<Good, Integer> clientBasket = clientDAO.getClient().getBasket();
 
             Float sumOfBuy = clientDAO.calculateBasket(clientBasket);
-            clientDAO.removeCash(sumOfBuy);
+            try {
+                clientDAO.removeCash(sumOfBuy);
+            } catch (CashNotEnoughException e) {
+                System.out.println(e.getMessage());
+            }
             shopDAO.addCash(sumOfBuy);
 
             for (Map.Entry<Good, Integer> goodInBasket : clientBasket.entrySet()) {
@@ -80,6 +86,8 @@ public class BuyTest
             System.out.println("Shop cash = " + shopDAO.getShop().getCash() + "\n" + "Client cash = " +
                     clientDAO.getClient().getCash());
         } catch (GoodNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (GoodNotEnoughException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -101,7 +109,11 @@ public class BuyTest
             HashMap<Good, Integer> clientBasket = clientDAO.getClient().getBasket();
 
             Float sumOfBuy = clientDAO.calculateBasket(clientBasket);
-            clientDAO.removeCash(sumOfBuy);
+            try {
+                clientDAO.removeCash(sumOfBuy);
+            } catch (CashNotEnoughException e) {
+                System.out.println(e.getMessage());
+            }
             shopDAO.addCash(sumOfBuy);
 
             for (Map.Entry<Good, Integer> goodInBasket : clientBasket.entrySet()) {
@@ -121,6 +133,8 @@ public class BuyTest
             System.out.println("Shop cash = " + shopDAO.getShop().getCash() + "\n" + "Client cash = " +
                     clientDAO.getClient().getCash());
         } catch (GoodNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (GoodNotEnoughException e) {
             System.out.println(e.getMessage());
         }
     }

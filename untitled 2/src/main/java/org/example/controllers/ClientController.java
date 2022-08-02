@@ -1,5 +1,7 @@
 package org.example.controllers;
 
+import ShopExceptions.CashNotEnoughException;
+import ShopExceptions.GoodNotEnoughException;
 import ShopExceptions.GoodNotFoundException;
 import ShopExceptions.ShopEmployeeException;
 import org.example.dao.CheckDAO;
@@ -42,6 +44,8 @@ public class ClientController
                     try {
                         clientDAO.addGoodToBasket(good, count);
                     } catch (GoodNotFoundException e) {
+                        System.out.println(e.getMessage());
+                    } catch (GoodNotEnoughException e) {
                         System.out.println(e.getMessage());
                     }
                     interfaceMenu();
@@ -94,8 +98,12 @@ public class ClientController
         CheckDAO checkDAO = new CheckDAO();
             HashMap<Good, Integer> basket = clientDAO.getClient().getBasket();
             Float sumOfBuy = clientDAO.calculateBasket(basket);
+        try {
             clientDAO.removeCash(sumOfBuy);
-            shopDAO.addCash(sumOfBuy);
+        } catch (CashNotEnoughException e) {
+            System.out.println(e.getMessage());
+        }
+        shopDAO.addCash(sumOfBuy);
 
             for (Map.Entry<Good, Integer> goodInBasket : basket.entrySet()) {
                 try{

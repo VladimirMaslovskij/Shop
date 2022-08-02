@@ -1,5 +1,6 @@
 package org.example;
 
+import ShopExceptions.GoodNotEnoughException;
 import ShopExceptions.GoodNotFoundException;
 import org.example.dao.ClientDAO;
 import org.example.dao.ShopDAO;
@@ -35,6 +36,8 @@ public class ClientDAOTest
             Assert.assertEquals(2, clientDAO.getClient().getBasket().size());
         } catch (GoodNotFoundException e) {
             System.out.println(e.getMessage());
+        } catch (GoodNotEnoughException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -55,6 +58,8 @@ public class ClientDAOTest
 
             Assert.assertEquals(1, clientDAO.getClient().getBasket().size());
         } catch (GoodNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (GoodNotEnoughException e) {
             System.out.println(e.getMessage());
         }
     }

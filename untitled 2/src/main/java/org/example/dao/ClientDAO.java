@@ -1,5 +1,7 @@
 package org.example.dao;
 
+import ShopExceptions.CashNotEnoughException;
+import ShopExceptions.GoodNotEnoughException;
 import ShopExceptions.GoodNotFoundException;
 import org.example.models.Check;
 import org.example.models.Client;
@@ -36,7 +38,7 @@ public class ClientDAO
         this.client = client;
     }
 
-    public void addGoodToBasket(String name, Integer amount) throws GoodNotFoundException {
+    public void addGoodToBasket(String name, Integer amount) throws GoodNotFoundException, GoodNotEnoughException {
         ShopDAO shopDAO = new ShopDAO();
         HashMap<Good, Integer> store = shopDAO.findAllGoods();
         if (store.size() > 0)
@@ -55,10 +57,7 @@ public class ClientDAO
                             client.getBasket().put(good, amount);
                     } else
                     {
-                        if(client.getBasket().containsKey(good))
-                            client.getBasket().put(good, client.getBasket().get(good) + goodInfo.getValue());
-                        else
-                            client.getBasket().put(good, goodInfo.getValue());
+                        throw new GoodNotEnoughException("Not enough goods in shop");
                     }
                     isInclude = true;
                 }
@@ -103,9 +102,10 @@ public class ClientDAO
         return total;
     }
 
-    public void removeCash(Float sum)
-    {
-        client.setCash(client.getCash() - sum);
+    public void removeCash(Float sum) throws CashNotEnoughException {
+        if (client.getCash() >= sum)
+            client.setCash(client.getCash() - sum);
+        else throw new CashNotEnoughException("Not enough cash, remove some goods in your basket and try again");
     }
 
 

@@ -1,5 +1,4 @@
-chicken,150.0,89
-banana,48.0,76
-bread,27.0,50
 candy,190.0,106
-apple,50.0,45
+chicken,150.0,89
+bread,27.0,50
+banana,48.0,76
